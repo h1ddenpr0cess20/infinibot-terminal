@@ -5,7 +5,7 @@ Terminal version of Infinibot, the OpenAI chatbot capable of any personality.
 ```
 pip3 install openai rich
 ```
-Add your OpenAI key.
+Add your OpenAI key.  
 Change the default personality to something else if you want.
 
 ```
