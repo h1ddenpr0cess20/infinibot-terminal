@@ -22,8 +22,8 @@ class infiniGPT:
         try:
             #Generate response with gpt-3.5-turbo model
             response = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=message)
-        except Exception as e:
-            return e
+        except:
+            return "Something went wrong, try again"
         else:
             #Extract response text and add it to history
             response_text = response['choices'][0]['message']['content']
@@ -37,9 +37,8 @@ class infiniGPT:
         def reset():
             os.system('clear') #clear 
             try:
-                greet = "introduce yourself"
                 self.persona(self.personality)
-                self.messages.append({"role": "user", "content": greet})
+                self.messages.append({"role": "user", "content": "introduce yourself"})
                 self.respond(self.messages)
                 console.print(response_text + "  Type help for more information.\n", style='gold3')
             except:
