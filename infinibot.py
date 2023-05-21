@@ -36,13 +36,11 @@ class infiniGPT:
         #clear screen
         def reset():
             os.system('clear') #clear 
-            
-            greet = "introduce yourself"
-            personality = "assume the personality of " + self.personality + ".  roleplay and always stay in character unless instructed otherwise.  keep your first response short."
             try:
-                response = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=[{"role": "system", "content": personality},
-                                                                                            {"role": "user", "content": greet}])
-                response_text = response['choices'][0]['message']['content']
+                greet = "introduce yourself"
+                self.persona(self.personality)
+                self.messages.append({"role": "user", "content": greet})
+                self.respond(self.messages)
                 console.print(response_text + "  Type help for more information.\n", style='gold3')
             except:
                 console.print("Hello, I am InfiniGPT, an AI that can assume any personality.  Type help for more information.\n", style='gold3')
