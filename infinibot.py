@@ -36,10 +36,10 @@ class infiniGPT:
         #clear screen
         def reset():
             os.system('clear') #clear 
+            self.persona(self.personality)
+            self.messages.append({"role": "user", "content": "introduce yourself"})
             try:
-                self.persona(self.personality)
-                self.messages.append({"role": "user", "content": "introduce yourself"})
-                self.respond(self.messages)
+                response_text = self.respond(self.messages)
                 console.print(response_text + "  Type help for more information.\n", style='gold3')
             except:
                 console.print("Hello, I am InfiniGPT, an AI that can assume any personality.  Type help for more information.\n", style='gold3')
