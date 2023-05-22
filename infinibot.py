@@ -33,23 +33,24 @@ class infiniGPT:
             return response_text.strip()
         
     def start(self):
-        #clear screen
+        # text wrap and color
+        console = Console()
+        console.width=80
+        console.wrap_text = True
+        soft_wrap=True
+       
         def reset():
-            os.system('clear') #clear 
+            os.system('clear') #clear screen
+            #set personality and introduce self
             self.persona(self.personality)
             self.messages.append({"role": "user", "content": "introduce yourself"})
             try:
                 response_text = self.respond(self.messages)
                 console.print(response_text + "  Type help for more information.\n", style='gold3')
+            #fallback if generated introduction
             except:
                 console.print("Hello, I am InfiniGPT, an AI that can assume any personality.  Type help for more information.\n", style='gold3')
 
-        # text wrap and color
-        console = Console()
-        console.width=100
-        console.wrap_text = True
-        soft_wrap=True
-        
         reset()
         
         prompt = "" #empty string for prompt input
