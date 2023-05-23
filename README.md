@@ -1,6 +1,6 @@
-# infinibot-terminal
+# infinigpt-terminal
 
-Terminal version of Infinibot, the OpenAI chatbot capable of any personality.
+Terminal version of InfiniGPT, the OpenAI chatbot capable of any personality.  Also available for IRC and Matrix chat protocols.
 
 ```
 pip3 install openai rich
