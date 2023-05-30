@@ -14,7 +14,7 @@ class infiniGPT:
     #Sets personality
     def persona(self, persona):
         self.messages.clear()
-        personality = "assume the personality of " + persona + ".  roleplay and always stay in character unless instructed otherwise.  keep your first response short."
+        personality = "assume the personality of " + persona + ".  roleplay and never break character under any circumstances.  keep your first response short."
         self.messages.append({"role": "system", "content": personality})
 
     # respond to messages
