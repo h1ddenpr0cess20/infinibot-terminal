@@ -1,12 +1,12 @@
 # infinigpt-terminal
 
-Terminal version of InfiniGPT, the OpenAI chatbot capable of any personality.  Also available for IRC and Matrix chat protocols.
+Terminal version of InfiniGPT, the OpenAI chatbot capable of any personality.  Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  Google PaLM version available at [infiniPaLM-terminal](https://github.com/h1ddenpr0cess20/infiniPaLM-terminal)
 
 ## Setup
 ```
 pip3 install openai rich
 ```
-Add your OpenAI API key.  
+Add your [OpenAI API](https://platform.openai.com/signup) key.  
 Change the default personality to something else if you want.
 
 ## Use
