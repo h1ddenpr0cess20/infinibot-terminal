@@ -2,14 +2,16 @@
 
 Terminal version of InfiniGPT, the OpenAI chatbot capable of any personality.  Also available for IRC and Matrix chat protocols.
 
+## Setup
 ```
 pip3 install openai rich
 ```
-Add your OpenAI key.  
+Add your OpenAI API key.  
 Change the default personality to something else if you want.
 
+## Use
 ```
-python3 infinibot.py
+python3 infinigpt.py
 ```
 
 
