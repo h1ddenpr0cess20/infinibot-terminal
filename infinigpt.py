@@ -14,14 +14,19 @@ class infiniGPT:
         self.personality = personality
         self.persona(self.personality)
 
-        #set gpt model
+        # set gpt model, change to gpt-4 if you want
         self.model = "gpt-3.5-turbo"
 
-    #Sets personality
+    # Sets personality
     def persona(self, persona):
         self.messages.clear()
         personality = "assume the personality of " + persona + ".  roleplay and never break character under any circumstances.  keep your first response short."
         self.messages.append({"role": "system", "content": personality})
+    
+    # use a custom prompt such as one you might find at awesome-chatgpt-prompts
+    def custom(self, prompt):
+        self.messages.clear()
+        self.messages.append({"role": "system", "content": prompt})
 
     # respond to messages
     def respond(self, message):
@@ -50,13 +55,13 @@ class infiniGPT:
         def reset():
             logging.info("Bot reset")
             os.system('clear') #clear screen
-            #set personality and introduce self
+            # set personality and introduce self
             self.persona(self.personality)
             self.messages.append({"role": "user", "content": "introduce yourself"})
             try:
                 response_text = self.respond(self.messages)
                 console.print(response_text + "  Type help for more information.\n", style='gold3')
-            #fallback if generated introduction
+            # fallback if generated introduction failed
             except:
                 console.print("Hello, I am InfiniGPT, an AI that can assume any personality.  Type help for more information.\n", style='gold3')
 
@@ -78,6 +83,7 @@ class infiniGPT:
 [b]reset[/] resets to default personality.
 [b]stock[/] or [b]default[/] sets bot to stock gpt settings.
 [b]persona[/] activates personality changer, enter a new personality when prompted.
+[b]custom[/] set a custom prompt
 [b]quit[/] or [b]exit[/] exits the program.
 ''', style="gold3")
                 
@@ -88,8 +94,16 @@ class infiniGPT:
                 logging.info(f"Persona set to {persona}")
                 console.print(self.respond(self.messages) + "\n", style="gold3", justify="full") #print response
 
+            # use a custom prompt
+            elif prompt == "custom":
+                custom = console.input("[grey66]Custom prompt: [/]") #ask for custom prompt
+                self.custom(custom)
+                logging.info(f"Custom prompt set: {custom}")
+                console.print(self.respond(self.messages) + "\n", style="gold3", justify="full") #print response
+
             # reset history   
             elif prompt == "reset":
+                logging.info("Bot was reset")
                 reset()
                 
             # stock gpt    
@@ -97,7 +111,7 @@ class infiniGPT:
                 self.messages.clear()
                 logging.info("Stock GPT settings applied")
                 console.print("Stock GPT settings applied\n", style="red")
-
+            
             # normal response
             elif prompt != None:
                 self.messages.append({"role": "user", "content": prompt})
@@ -107,7 +121,6 @@ class infiniGPT:
             # no message
             else:
                 continue
-
 
 if __name__ == "__main__":
     # Initialize OpenAI
