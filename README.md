@@ -1,6 +1,6 @@
 # infinigpt-terminal
 
-Terminal version of InfiniGPT, an OpenAI chatbot capable of any personality you can think of.  People, fictional characters, character descriptions, inanimate objects, concepts, emoji.  Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  
+Terminal version of InfiniGPT, an OpenAI chatbot capable of any personality you can think of.  People, fictional characters, character descriptions, inanimate objects, concepts, emoji.  Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  Google PaLM version available at [infiniPaLM-terminal](https://github.com/h1ddenpr0cess20/infiniPaLM-terminal)
 
 ## Setup
 ```
