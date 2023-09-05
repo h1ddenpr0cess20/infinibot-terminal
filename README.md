@@ -1,13 +1,20 @@
 # infinigpt-terminal
 
-Terminal version of InfiniGPT, an OpenAI chatbot capable of any personality you can think of.  People, fictional characters, character descriptions, inanimate objects, concepts, emoji.  Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  Google PaLM version available at [infiniPaLM-terminal](https://github.com/h1ddenpr0cess20/infiniPaLM-terminal)
+Terminal version of InfiniGPT, an OpenAI chatbot capable of any personality you can think of, including people, fictional characters, character descriptions, inanimate objects, concepts, emoji.. 
+
+Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  
+
+Google PaLM version available at [infiniPaLM-terminal](https://github.com/h1ddenpr0cess20/infiniPaLM-terminal)
 
 ## Setup
 ```
 pip3 install openai rich
 ```
-Add your [OpenAI API](https://platform.openai.com/signup) key.  
+Add your [OpenAI API](https://platform.openai.com/signup) key.
+
 Change the default personality to something else if you want.
+
+Customize the colors if you want, color names available [here](https://rich.readthedocs.io/en/stable/appendix/colors.html)
 
 ## Use
 ```
