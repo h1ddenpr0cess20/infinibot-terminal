@@ -1,3 +1,7 @@
+# InfiniGPT-terminal, OpenAI GPT chatbot with infinite personalities
+# Dustin Whyte
+# May 2023
+
 import openai
 import os
 import logging
@@ -14,13 +18,14 @@ class infiniGPT:
         self.personality = personality
         self.persona(self.personality)
 
-        # set gpt model, change to gpt-4 if you want
+        # set gpt model, change to gpt-4 if you want.  
+        # this model has odd repetitive behaviors, such as addressing user as "my dear interlocuor", starting responses with "Ah", etc
         self.model = "gpt-3.5-turbo"
 
     # Sets personality
     def persona(self, persona):
         self.messages.clear()
-        personality = "assume the personality of " + persona + ".  roleplay and never break character under any circumstances.  keep your first response short."
+        personality = "assume the personality of " + persona + ".  roleplay and never break character under any circumstances.  keep your responses short. "
         self.messages.append({"role": "system", "content": personality})
     
     # use a custom prompt such as one you might find at awesome-chatgpt-prompts
@@ -92,14 +97,16 @@ class infiniGPT:
                 persona = console.input("[grey66]Persona: [/]") #ask for new persona
                 self.persona(persona) #response passed to persona function
                 logging.info(f"Persona set to {persona}")
-                console.print(self.respond(self.messages) + "\n", style="gold3", justify="full") #print response
+                response = self.respond(self.messages)
+                console.print(response + "\n", style="gold3", justify="full", highlight=False) #print response
 
             # use a custom prompt
             elif prompt == "custom":
                 custom = console.input("[grey66]Custom prompt: [/]") #ask for custom prompt
                 self.custom(custom)
                 logging.info(f"Custom prompt set: {custom}")
-                console.print(self.respond(self.messages) + "\n", style="gold3", justify="full") #print response
+                response = self.respond(self.messages)
+                console.print(response + "\n", style="gold3", justify="full", highlight=False) #print response
 
             # reset history   
             elif prompt == "reset":
@@ -110,13 +117,19 @@ class infiniGPT:
             elif prompt == "default" or prompt == "stock":
                 self.messages.clear()
                 logging.info("Stock GPT settings applied")
-                console.print("Stock GPT settings applied\n", style="red")
+                console.print("Stock GPT settings applied\n", style="green")
             
             # normal response
             elif prompt != None:
                 self.messages.append({"role": "user", "content": prompt})
                 logging.info(f"User: {prompt}")
-                console.print(self.respond(self.messages) + "\n", style="gold3", justify="full") #print response
+                response = self.respond(self.messages)
+                #special colorization for code blocks or quotations
+                if "```" in response or response.startswith('"'):
+                    console.print(response + "\n", style="gold3", justify="full") #print response
+                #no special colorization for responses without those
+                else:
+                    console.print(response + "\n", style="gold3", justify="full", highlight=False) #print response
             
             # no message
             else:
