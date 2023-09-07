@@ -119,6 +119,16 @@ class infiniGPT:
                 logging.info("Stock GPT settings applied")
                 console.print("Stock GPT settings applied\n", style="green")
             
+            #gpt model switcher
+            elif prompt.startswith("gpt3"):
+                self.model = "gpt-3.5-turbo"
+                logging.info("gpt-3.5-turbo activated")
+                console.print("gpt-3.5-turbo activated\n", style="green", highlight=False)
+            elif prompt == "gpt4":
+                self.model = "gpt-4"
+                logging.info("gpt-4 activated")
+                console.print("gpt-4 activated\n", style="green", highlight=False)
+
             # normal response
             elif prompt != None:
                 self.messages.append({"role": "user", "content": prompt})
