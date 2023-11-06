@@ -2,7 +2,7 @@
 # Dustin Whyte
 # May 2023
 
-import openai
+from openai import OpenAI
 import os
 import logging
 from rich.console import Console
@@ -10,7 +10,9 @@ from rich.console import Console
 logging.basicConfig(filename='infinigpt.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
 class infiniGPT:
-    def __init__(self, personality):
+    def __init__(self, personality, api_key):
+
+        self.openai = OpenAI(api_key=api_key)
         # holds history
         self.messages = []
 
@@ -38,12 +40,12 @@ class infiniGPT:
         
         try:
             #Generate response 
-            response = openai.ChatCompletion.create(model=self.model, messages=message)
+            response = self.openai.chat.completions.create(model=self.model, messages=message)
         except:
             return "Something went wrong, try again"
         else:
             #Extract response text and add it to history
-            response_text = response['choices'][0]['message']['content']
+            response_text = response.choices[0].message.content
             self.messages.append({"role": "assistant", "content": response_text})
             logging.info(f"Bot: {response_text}")
             if len(self.messages) > 14:
@@ -147,11 +149,11 @@ class infiniGPT:
 
 if __name__ == "__main__":
     # Initialize OpenAI
-    openai.api_key = "API_KEY"
+    api_key = "API_KEY"
 
     
     #set the default personality
     personality = "an AI that can assume any personality imaginable, named InfiniGPT"
     #start bot
-    bot = infiniGPT(personality)
+    bot = infiniGPT(personality, api_key)
     bot.start()
