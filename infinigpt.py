@@ -20,9 +20,8 @@ class infiniGPT:
         self.personality = personality
         self.persona(self.personality)
 
-        # set gpt model, change to gpt-4 if you want.  
-        # this model has odd repetitive behaviors, such as addressing user as "my dear interlocuor", starting responses with "Ah", etc
-        self.model = "gpt-3.5-turbo"
+        # set gpt model, change to gpt-4-1106-preview if you want to use gpt-4 turbo
+        self.model = "gpt-3.5-turbo-1106"
 
     # Sets personality
     def persona(self, persona):
@@ -48,7 +47,7 @@ class infiniGPT:
             response_text = response.choices[0].message.content
             self.messages.append({"role": "assistant", "content": response_text})
             logging.info(f"Bot: {response_text}")
-            if len(self.messages) > 14:
+            if len(self.messages) > 20:
                 del self.messages[1:3]
             return response_text.strip()
         
@@ -123,12 +122,12 @@ class infiniGPT:
             
             #gpt model switcher
             elif prompt.startswith("gpt3"):
-                self.model = "gpt-3.5-turbo"
-                logging.info("gpt-3.5-turbo activated")
+                self.model = "gpt-3.5-turbo-1106"
+                logging.info("gpt-3.5 turbo activated")
                 console.print("gpt-3.5-turbo activated\n", style="green", highlight=False)
             elif prompt == "gpt4":
-                self.model = "gpt-4"
-                logging.info("gpt-4 activated")
+                self.model = "gpt-4-1106-preview"
+                logging.info("gpt-4 turbo activated")
                 console.print("gpt-4 activated\n", style="green", highlight=False)
 
             # normal response
