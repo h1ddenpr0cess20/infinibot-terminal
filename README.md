@@ -4,13 +4,16 @@ Terminal version of InfiniGPT, an OpenAI chatbot capable of any personality you 
 
 Also available for [IRC](https://github.com/h1ddenpr0cess20/infinigpt-irc) and [Matrix](https://github.com/h1ddenpr0cess20/infinigpt-matrix) chat protocols.  
 
-
+Now supports Ollama and model switching.
 
 ## Setup
 ```
-pip3 install openai rich
+pip3 install openai rich ollama-python
 ```
+
 Add your [OpenAI API](https://platform.openai.com/signup) key.
+
+Add your desired GPT and Ollama models to the list of models.
 
 Change the default personality to something else if you want.
 
