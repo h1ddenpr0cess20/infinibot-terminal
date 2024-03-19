@@ -6,7 +6,7 @@ from openai import OpenAI
 import os
 import logging
 from rich.console import Console
-#from modellist import model_list
+import ollama
 
 logging.basicConfig(filename='infinigpt.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -34,7 +34,16 @@ class infiniGPT:
             ]
         
         #alternatively create list automatically from all installed models using ollama-python
-        #self.models = model_list()
+        # def model_list():
+        #     models = ollama.list()
+
+        #     model_list = sorted([model['name'] for model in models['models']])
+        #     model_list.insert(0,"gpt-3.5-turbo")
+        #     model_list.insert(1,"gpt-4-turbo-preview")
+
+        #     return model_list
+
+        # self.models = model_list()
 
         #set model 
         #change to the name of an Ollama model if using Ollama, for example "zephyr"
