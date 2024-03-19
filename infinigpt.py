@@ -6,6 +6,7 @@ from openai import OpenAI
 import os
 import logging
 from rich.console import Console
+import ollama
 
 logging.basicConfig(filename='infinigpt.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
@@ -16,12 +17,49 @@ class infiniGPT:
         # holds history
         self.messages = []
 
+        #add your desired ollama models and gpt models here
+        self.models = [
+            'gpt-3.5-turbo',
+            'gpt-4-turbo-preview',
+            'codellama',
+            'dolphin-mistral',
+            'gemma',
+            'llama2',
+            'mistral',
+            'orca2',
+            'solar',
+            'stablelm2',
+            'starling-lm',
+            'zephyr'
+            ]
+        
+        #alternatively create list automatically from all installed models using ollama-python
+        # def model_list():
+        #     models = ollama.list()
+
+        #     model_list = sorted([model['name'] for model in models['models']])
+        #     model_list.insert(0,"gpt-3.5-turbo")
+        #     model_list.insert(1,"gpt-4-turbo-preview")
+
+        #     return model_list
+
+        # self.models = model_list()
+
+        #set model 
+        #change to the name of an Ollama model if using Ollama, for example "zephyr"
+        self.change_model("gpt-3.5-turbo") 
+
         # set default personality
         self.personality = personality
         self.persona(self.personality)
 
-        # set gpt model, change to gpt-4-1106-preview if you want to use gpt-4 turbo
-        self.model = "gpt-3.5-turbo-1106"
+    def change_model(self, modelname):
+        if modelname.startswith("gpt"):
+            self.openai.base_url = 'https://api.openai.com/v1'
+        else:
+            self.openai.base_url = 'http://localhost:11434/v1'
+
+        self.model = self.models[self.models.index(modelname)]
 
     # Sets personality
     def persona(self, persona):
@@ -47,7 +85,7 @@ class infiniGPT:
             response_text = response.choices[0].message.content
             self.messages.append({"role": "assistant", "content": response_text})
             logging.info(f"Bot: {response_text}")
-            if len(self.messages) > 20:
+            if len(self.messages) > 24:
                 del self.messages[1:3]
             return response_text.strip()
         
@@ -73,7 +111,7 @@ class infiniGPT:
 
         reset()
         
-        prompt = "" #empty string for prompt input
+        prompt = ""
         
         while prompt != "quit":
             # get the message
@@ -90,24 +128,25 @@ class infiniGPT:
 [b]stock[/] or [b]default[/] sets bot to stock gpt settings.
 [b]persona[/] activates personality changer, enter a new personality when prompted.
 [b]custom[/] set a custom prompt
+[b]change model[/] switch between GPT and Ollama models
 [b]quit[/] or [b]exit[/] exits the program.
 ''', style="gold3")
                 
             # set personality    
             elif prompt == "persona":
-                persona = console.input("[grey66]Persona: [/]") #ask for new persona
-                self.persona(persona) #response passed to persona function
+                persona = console.input("[grey66]Persona: [/]")
+                self.persona(persona)
                 logging.info(f"Persona set to {persona}")
                 response = self.respond(self.messages)
-                console.print(response + "\n", style="gold3", justify="full", highlight=False) #print response
+                console.print(response + "\n", style="gold3", justify="full", highlight=False) 
 
             # use a custom prompt
             elif prompt == "custom":
-                custom = console.input("[grey66]Custom prompt: [/]") #ask for custom prompt
+                custom = console.input("[grey66]Custom prompt: [/]")
                 self.custom(custom)
                 logging.info(f"Custom prompt set: {custom}")
                 response = self.respond(self.messages)
-                console.print(response + "\n", style="gold3", justify="full", highlight=False) #print response
+                console.print(response + "\n", style="gold3", justify="full", highlight=False)
 
             # reset history   
             elif prompt == "reset":
@@ -120,15 +159,13 @@ class infiniGPT:
                 logging.info("Stock GPT settings applied")
                 console.print("Stock GPT settings applied\n", style="green")
             
-            #gpt model switcher
-            elif prompt.startswith("gpt3"):
-                self.model = "gpt-3.5-turbo-1106"
-                logging.info("gpt-3.5 turbo activated")
-                console.print("gpt-3.5-turbo activated\n", style="green", highlight=False)
-            elif prompt == "gpt4":
-                self.model = "gpt-4-1106-preview"
-                logging.info("gpt-4 turbo activated")
-                console.print("gpt-4 activated\n", style="green", highlight=False)
+            #model switching
+            elif prompt == "change model":
+                console.print(f"[b]Current model:[/] [red]{self.model}[/]", highlight=False)
+                console.print(f'[b]Available models:[/] [red]{", ".join(self.models)}[/]', highlight=False)
+                model = console.input("[b]Enter model name:[/] ")
+                if model in self.models:
+                    self.change_model(model)
 
             # normal response
             elif prompt != None:
@@ -147,10 +184,10 @@ class infiniGPT:
                 continue
 
 if __name__ == "__main__":
-    # Initialize OpenAI
-    api_key = "API_KEY"
+    #put a key here and uncomment if not already set in environment
+    #os.environ['OPENAI_API_KEY'] = "api_key"
 
-    
+    api_key = os.environ.get("OPENAI_API_KEY")
     #set the default personality
     personality = "an AI that can assume any personality imaginable, named InfiniGPT"
     #start bot
