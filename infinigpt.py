@@ -26,6 +26,7 @@ class infiniGPT:
             'gemma',
             'llama2',
             'mistral',
+            'openchat',
             'orca2',
             'solar',
             'stablelm2',
@@ -37,7 +38,7 @@ class infiniGPT:
         # def model_list():
         #     models = ollama.list()
 
-        #     model_list = sorted([model['name'] for model in models['models']])
+        #     model_list = sorted([model['name'].removesuffix(":latest") for model in models['models']])
         #     model_list.insert(0,"gpt-3.5-turbo")
         #     model_list.insert(1,"gpt-4-turbo-preview")
 
