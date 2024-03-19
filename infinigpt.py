@@ -6,7 +6,7 @@ from openai import OpenAI
 import os
 import logging
 from rich.console import Console
-import ollama
+#import ollama
 
 logging.basicConfig(filename='infinigpt.log', level=logging.INFO, format='%(asctime)s - %(message)s')
 
